@@ -116,7 +116,7 @@ main(int argc, char **argv)
   if (input_file != stdin) {
     if ( (fclose(input_file) == EOF)) {
       fprintf(stderr, "Error: tried to close file '%s': %s",
-              strerror(errno));
+              input_filename, strerror(errno));
       exit(1);
     }
   }
