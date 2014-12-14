@@ -7,9 +7,9 @@ OUT = -o vc
 SRC = vowelcount.c
 
 all: $(SRC)
-	cc $(STD) $(SRC) $(OUT)
+	cc -O2 $(SRC) $(OUT)
 
 .phony: clean
 
 clean:
-	rm -f vowelcount
+	rm -f vc
