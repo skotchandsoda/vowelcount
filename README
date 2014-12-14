@@ -1,0 +1,37 @@
+                  vc - count the vowels in a text file
+
+  usage: vc [file]
+
+About
+
+  I interviewing for a software engineering internship, and for warmup
+  the interviewer asked me to sketch up a way to count the number of
+  vowels in an input file.
+
+  Weeks later, bored, I decided to implement the idea I had sketched in
+  the interview.
+
+  vc, i.e. vowel count, is the result of my efforts.
+
+  My idea essentially was to have an alphabet file that the program
+  would read to determine what a "vowel" was, and then plow through the
+  input file, character by character, incrementing its count as it went.
+
+Issues
+
+  As of this writing I do not support an alphabet file.
+
+  vc currently only supports ASCII input.
+
+Build
+
+  To build it, just run `make'.
+
+See Also
+
+  Naturally, my effort was pretty much totally in vain, as one could
+  very easily use `grep' to achieve the same result.  To see this, try
+
+    $ cat input_file | grep -e "[aeiou]" -o -i | wc -l
+
+  in Linux, OS X, or any other remotely POSIX-compliant environment.
