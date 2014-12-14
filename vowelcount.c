@@ -12,25 +12,17 @@
 #include <string.h>
 #include <unistd.h>
 
-/* Returns 1 if character 'c' is a vowel, and 0 otherwise.  */
-int
-is_vowel(int c, int *vowels)
-{
-  if (isalpha(c)) {
-    /* 'c' is alphabetical.  Now check if 'c' is a vowel.  */
-    int lower_c = tolower(c);
-    int i = 0;
-    while (vowels[i] != '\0') {
-      if (lower_c == vowels[i]) {
-        return 1;
-      }
+/* Vowels are nonzero.  */
+static int ascii_vowels_table[128] =
+  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-      i++;
-    }
-  }
-
-  return 0;
-}
 
 void
 usage()
@@ -84,19 +76,11 @@ main(int argc, char **argv)
     usage();
   }
 
-  /* Find our alphabet file.  */
-  /* Currently I just use the vowels[] array.  */
-
-  /* Define what a vowel actually is.
-     Assuming English alphabet currently.
-     NULL terminated.  */
-  int vowels[6] = {'a','e','i','o','u','\0'};
-
   /* Start reading through the file, character by character and counting
      those vowels.  */
   unsigned long vowel_count = 0;
   while ((c = fgetc(input_file)) != EOF) {
-    if (is_vowel(c, vowels)) {
+    if (ascii_vowels_table[c]) {
       vowel_count++;
     }
   }
@@ -109,7 +93,7 @@ main(int argc, char **argv)
   }
 
   /* Print results.  */
-  printf("    vowels: %lu\n", vowel_count);
+  printf("    %lu\n", vowel_count);
 
   /* If necessary, clean up.  */
  cleanup:
